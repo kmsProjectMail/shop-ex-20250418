@@ -34,6 +34,11 @@ public class Delivery {
         DeliveryStarted deliveryStarted = new DeliveryStarted(this);
         deliveryStarted.publishAfterCommit();
 
+        
+    }
+
+    @PreRemove
+    public void onPreRemove() {
         DeliveryCanceled deliveryCanceled = new DeliveryCanceled(this);
         deliveryCanceled.publishAfterCommit();
     }
@@ -49,11 +54,15 @@ public class Delivery {
     public static void startDelivery(OrderPlaced orderPlaced) {
         //implement business logic here:
 
-        /** Example 1:  new item 
+        // /** Example 1:  new item 
         Delivery delivery = new Delivery();
+        delivery.setCustomerId(orderPlaced.getCustomerId());
+        delivery.setAddress(orderPlaced.getAddress());
+        delivery.setOrderId(orderPlaced.getId());
+        delivery.setStatus("DELIVERY STARTED");
         repository().save(delivery);
 
-        */
+        // */
 
         /** Example 2:  finding and process
         
@@ -74,11 +83,15 @@ public class Delivery {
     public static void cancelDelivery(OrderCanceled orderCanceled) {
         //implement business logic here:
 
-        /** Example 1:  new item 
+        // /** Example 1:  new item 
         Delivery delivery = new Delivery();
+        delivery.setCustomerId(orderCanceled.getCustomerId());
+        delivery.setAddress(orderCanceled.getAddress());
+        delivery.setOrderId(orderCanceled.getId());
+        delivery.setStatus("DELIVERY STOP");
         repository().save(delivery);
 
-        */
+        // */
 
         /** Example 2:  finding and process
         
